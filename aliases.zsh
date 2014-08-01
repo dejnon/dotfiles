@@ -42,4 +42,4 @@ function ms { bundle exec middleman server --port ${@:-'3000'} }
 alias ip='ipconfig getifaddr en0; ipconfig getifaddr en1; dig +short myip.opendns.com @resolver1.opendns.com'
 
 # Smart alias for `proxylocal`
-function proxy { proxylocal --host porada ${@:-'3000'} }
+# function proxy { proxylocal --host porada ${@:-'3000'} }

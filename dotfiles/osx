@@ -3,6 +3,9 @@
 # Never go into computer sleep mode
 sudo systemsetup -setcomputersleep Off
 
+# Set highlight color to green
+defaults write NSGlobalDomain AppleHighlightColor -string "1.0 0.4 0.6"
+
 # Disable Resume and Versions system-wide
 defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool false
 defaults write -g ApplePersistence -bool no
@@ -19,9 +22,6 @@ defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 # Finder: disable window animations and Get Info animations
 defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool NO
 defaults write com.apple.finder DisableAllAnimations -bool true
-
-# Disable shadow in screenshots
-defaults write com.apple.screencapture disable-shadow -bool true
 
 # Enable subpixel font rendering on non-Apple LCDs
 defaults write NSGlobalDomain AppleFontSmoothing -int 2
