@@ -8,8 +8,9 @@ for source in .bundle .gemrc .gitconfig .hushlogin .powconfig .vim .vimrc .zshrc
   ln -s $source $target
 done
 
-touch ~/.z
+# Setup the subl command
+echo "Adding subl command"
 
-if [ `whoami` != "Dominik" ]; then
-  echo ".gitconfig: Remember to change your user info"
-fi
+sudo ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" /bin/subl
+
+touch ~/.z
