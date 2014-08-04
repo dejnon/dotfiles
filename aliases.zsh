@@ -43,3 +43,6 @@ alias ip='ipconfig getifaddr en0; ipconfig getifaddr en1; dig +short myip.opendn
 
 # Smart alias for `proxylocal`
 # function proxy { proxylocal --host porada ${@:-'3000'} }
+
+# Rubocop with RVM
+alias cop='rvm 2.1.2 do rubocop -R'
