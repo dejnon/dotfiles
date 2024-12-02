@@ -1,0 +1,64 @@
+// Place your key bindings in this file to override the defaults
+[
+  {
+    "key": "cmd+`",
+    "command": "workbench.action.terminal.toggleTerminal",
+    "when": "terminal.active"
+  },
+  {
+    "key": "ctrl+`",
+    "command": "-workbench.action.terminal.toggleTerminal",
+    "when": "terminal.active"
+  },
+  {
+    "key": "cmd+i",
+    "command": "workbench.action.moveEditorToPreviousGroup"
+  },
+  {
+    "key": "cmd+o",
+    "command": "workbench.action.moveEditorToNextGroup"
+  },
+  {
+    "key": "shift+cmd+=",
+    "command": "editor.action.fontZoomIn"
+  },
+  {
+    "key": "shift+cmd+-",
+    "command": "editor.action.fontZoomOut"
+  },
+  {
+    "key": "shift+cmd+0",
+    "command": "editor.action.fontZoomReset"
+  },
+  {
+    "key": "ctrl+cmd+down",
+    "command": "workbench.action.increaseViewHeight"
+  },
+  {
+    "key": "ctrl+cmd+right",
+    "command": "workbench.action.increaseViewWidth"
+  },
+  {
+    "key": "ctrl+cmd+left",
+    "command": "workbench.action.decreaseViewWidth"
+  },
+  {
+    "key": "ctrl+cmd+up",
+    "command": "workbench.action.decreaseViewHeight"
+  },
+  {
+    "key": "alt+\\",
+    "command": "-editor.action.inlineSuggest.trigger",
+    "when": "config.github.copilot.inlineSuggest.enable && editorTextFocus && !editorHasSelection && !inlineSuggestionsVisible"
+  },
+  {
+    "key": "alt+[",
+    "command": "-editor.action.inlineSuggest.showPrevious",
+    "when": "inlineSuggestionVisible && !editorReadonly"
+  },
+  {
+    "key": "alt+]",
+    "command": "-editor.action.inlineSuggest.showNext",
+    "when": "inlineSuggestionVisible && !editorReadonly"
+  }
+]

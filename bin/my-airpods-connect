@@ -1,0 +1,22 @@
+#!/usr/bin/env osascript
+
+display notification "Connecting AirPods" with title "AirPods"
+
+
+set AirPodsName to "Daniel’s AirPods Pro"
+set AirPodsAddr to "20-78-cd-20-e9-44"
+
+
+do shell script "/opt/homebrew/bin/blueutil -p 1"
+
+do shell script "/opt/homebrew/bin/blueutil --connect " & quoted form of AirPodsAddr
+
+do shell script "/opt/homebrew/bin/SwitchAudioSource -s " & (quoted form of AirPodsName)
+
+set isConnected to do shell script ("/opt/homebrew/bin/SwitchAudioSource -c | grep -q " & (quoted form of AirPodsName) & "; echo $?")
+
+if isConnected is "0" then
+	display notification "Done ✅" with title "AirPods"
+else
+	display notification "Failed 🛑" with title "AirPods"
+end if

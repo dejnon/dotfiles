@@ -1,0 +1,71 @@
+# Shorten the frequently used commands
+alias g='git'
+function o { open ${@:-'.'} }
+
+# Show and hide hidden files in Finder
+alias my-finder-hide='defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder'
+alias my-finder-show='defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder'
+
+# Less frequently used commands
+alias my-zshrc="code ~/.zshrc"
+alias my-dotfiles="code ~/Projects/dotfiles"
+function my-dotfiles-apply() {
+    ~/Projects/dotfiles/init
+    source ~/.zshrc
+}
+
+alias my-colima-setup="colima start --cpu 6 --memory 10 --disk 10 -r docker --mount /Users/dejnon/Projects/github:w --mount-type virtiofs --vm-type vz"
+
+function my-kill-port() {  
+    port=$(lsof -n -i4TCP:$1 | grep LISTEN | awk '{ print $2 }')  
+    kill -9 $port
+}
+
+# Show hidden files by default when using `ls`
+alias ll='command ls -lahAG'
+
+# Create a directory and enter it
+function mkcd { mkdir -p $1 && cd $_ }
+function mktouch { mkdir -p `dirname $1` && touch $1 }
+
+function my-git-credentials-work() {
+    git config --global user.name "Daniel Kosalla"
+    git config --global user.email dejnon@github.com
+}
+
+function my-pgp-decrypt-clipboard() {
+    GPG_TTY=$(tty) pbpaste | gpg --decrypt
+}
+
+# Recursively remove given files and directories
+alias rmd='rm -rfv'
+
+# Ruby-related aliases
+alias be='bundle exec'
+alias bi='bundle install'
+alias bo='bundle outdated'
+alias bu='bundle update'
+
+# Rails-related aliases
+alias rs='bundle exec rails server'
+alias rc='bundle exec rails console'
+alias rg='bundle exec rails generate'
+
+# JS-related aliases
+alias my-npm-review="npm run prettier && npm run lint-fix && npm run typecheck && npm run build"
+
+alias cdd="cd ~/Desktop"
+alias cdp="cd ~/Projects"
+alias cdg="cd ~/Projects/github"
+alias cdw="cd ~/Projects/github"
+alias cdh="cd ~/"
+
+alias dc="docker-compose"
+alias d="docker"
+
+# Determine local and public IP
+alias ip='ipconfig getifaddr en0; ipconfig getifaddr en1; dig +short myip.opendns.com @resolver1.opendns.com'
+
+function my-watch() {
+    while :; do clear; $2; sleep $1; done
+}

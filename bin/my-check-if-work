@@ -1,0 +1,3 @@
+#!/bin/bash
+
+! networksetup -getinfo "ThinkPad TBT 3 Dock" | grep "Address" | grep "null"

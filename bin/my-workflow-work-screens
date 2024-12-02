@@ -1,0 +1,179 @@
+#!/usr/bin/env osascript
+
+display notification "Setting up screens" with title "Workflow"
+
+-- 
+-- PORTRAITS
+-- 
+set fullPortraitWidth to 1200
+set fullPortraitHeight to 1920
+
+set sizeFourthPortrait to {fullPortraitWidth, fullPortraitHeight/4}
+set sizeThirdPortrait to {fullPortraitWidth, fullPortraitHeight/3}
+set sizeHalfPortrait to {fullPortraitWidth, fullPortraitHeight/2}
+set sizeMajorPortrait to {fullPortraitWidth, fullPortraitHeight*13/20}
+
+set monitorPL1X to -1200
+set monitorPL1Y to -1920
+set PL1 to {monitorPL1X, monitorPL1Y}
+set PL2 to {monitorPL1X, monitorPL1Y+(fullPortraitHeight/4)}
+set PL3 to {monitorPL1X, monitorPL1Y+(fullPortraitHeight/2)}
+set PL4 to {monitorPL1X, monitorPL1Y+((fullPortraitHeight*3.1)/4)}
+
+set monitorPR1X to 3010
+set monitorPR1Y to -1690
+set PR1 to {monitorPR1X, monitorPR1Y}
+set PR2 to {monitorPR1X, monitorPR1Y+(fullPortraitHeight/4)}
+set PR3 to {monitorPR1X, monitorPR1Y+(fullPortraitHeight/2)}
+set PR4 to {monitorPR1X, monitorPR1Y+((fullPortraitHeight*3.1)/4)}
+
+-- 
+-- IPAD
+-- 
+set fullIpadWidth to 1080
+set fullIpadHeight to 800
+
+set sizeFullIpad to {fullIpadWidth, fullIpadHeight}
+
+set monitorIL1X to -1080
+set monitorIL1Y to 220
+set IL1 to {monitorIL1X, monitorIL1Y}
+
+-- 
+-- Center
+-- 
+set fullCenterWidth to 3008
+set fullCenterHeight to 1700
+
+set sizeFullCenter to {fullCenterWidth, fullCenterHeight}
+
+set monitorCL1X to 0
+set monitorCL1Y to -1700
+set CL1 to {monitorCL1X, monitorCL1Y}
+
+
+-- |PL1  | |CL1   CL2   | |PR1  |  
+-- |PL2  | |            | |PR2  |
+-- |PL3  | |            | |PR3  |
+-- |PL4  |   |BL1 BL2 |   |PR4  |  
+--     [IL1] |        |  
+
+tell application "Image Events"
+    set displayCount to count of displays
+end tell
+
+try
+    tell application "System Events"
+        tell application "Slack" to activate
+        tell process "Slack"
+            set frontWindow to first window
+            set position of frontWindow to PL1
+            set size of frontWindow to sizeHalfPortrait
+
+            if displayCount > 4 then
+                set position of frontWindow to PL1
+                set size of frontWindow to sizeMajorPortrait
+            end if
+        end tell
+    end tell
+end try
+
+try
+    tell application "System Events"
+        tell process "Spotify"
+            set frontWindow to first window
+            set position of frontWindow to PR3
+            set size of frontWindow to sizeHalfPortrait
+
+            if displayCount > 4 then
+                set position of first window to IL1
+                set size of first window to sizeFullIpad
+            end if
+        end tell
+    end tell
+end try
+
+try
+    tell application "System Events"
+        tell process "Signal"
+            set frontWindow to first window
+            set position of frontWindow to PR3
+            set size of frontWindow to sizeHalfPortrait
+        end tell
+    end tell
+end try
+
+try
+    tell application "System Events"
+        tell process "Obsidian"
+            set frontWindow to first window
+            set position of frontWindow to PR3
+            set size of frontWindow to sizeHalfPortrait
+            set frontmost to true
+        end tell
+    end tell
+end try
+
+try
+    tell application "System Events"
+        tell process "Microsoft Teams"
+            set frontWindow to first window
+            set position of frontWindow to PR3
+            set size of frontWindow to sizeHalfPortrait
+        end tell
+    end tell
+end try
+
+try
+    tell application "System Events"
+        tell process "Code"
+            set frontWindow to first window
+            set position of frontWindow to CL1
+            set size of frontWindow to sizeFullCenter
+        end tell
+    end tell
+end try
+
+try
+    tell application "System Events"
+        tell application "Microsoft Outlook" to activate
+        tell process "Microsoft Outlook"
+            set firstWindow to first window
+            set position of firstWindow to PL4
+            set size of firstWindow to sizeFourthPortrait
+            tell application "System Events" to keystroke "1" using command down
+        end tell
+    end tell
+end try
+
+try
+    tell application "System Events"
+        tell application "Microsoft Outlook" to activate
+        tell process "Microsoft Outlook"
+
+            set secondWindow to window 2
+            perform action "AXRaise" of secondWindow
+            set frontmost to true
+            set position of secondWindow to PL3
+            set size of secondWindow to sizeFourthPortrait
+            tell application "Microsoft Outlook" to activate
+            tell application "System Events" to keystroke "2" using command down
+
+
+        end tell
+    end tell
+end try
+
+try
+    tell application "System Events"
+        tell application "Microsoft Outlook" to activate
+        tell process "Microsoft Outlook"
+            if displayCount > 4 then
+                set position of first window to IL1
+                set size of first window to sizeFullIpad
+            end if
+        end tell
+    end tell
+end try
+
+display notification "Done ✅" with title "Workflow"

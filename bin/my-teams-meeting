@@ -1,0 +1,77 @@
+#!/usr/bin/env osascript
+
+
+-- NOTE: You will need to allow JS from Applescript in Microsoft Edge:
+-- Tools => Developer => Allow JavaScript from AppleScript
+
+-- my urlToClipboard("Gmail", "http://gmail.com")
+
+-- on urlToClipboard(theTitle, theUrl)
+--     set rawHTML to "hello <a href=\"" & theUrl & "\">" & theTitle & "</a> ending"
+--     set escapedData to do shell script "echo " & (quoted form of rawHTML) as «class HTML»
+--     set the clipboard to escapedData
+-- end urlToClipboard
+#!/usr/bin/env osascript
+
+global meetingLink
+
+on get_meeting_link(t)
+  tell application "Microsoft Edge"
+    tell t to execute javascript "document?.querySelector('iframe')?.contentDocument?.querySelector('div[data-tid=meet_now_calendar_flyout_meeting_link_text_field] input')?.value || ''"
+  end tell
+end get_meeting_link
+
+on is_on_calendar_page(t)
+	tell application "Microsoft Edge"
+		tell t to execute javascript "document?.querySelector('iframe')?.contentDocument?.querySelector('button[data-tid=calendar_header_open_meet_now_flyout_button]')?.innerText?.includes('Meet now')"
+	end tell
+end is_on_calendar_page
+
+on is_really_on_calendar_page(t)
+	if is_on_calendar_page(t) is true then
+		delay 1
+		return is_on_calendar_page(t)
+	end if
+	return false
+end is_really_on_calendar_page
+
+on submit_meeting(t)
+  delay 0.5
+  tell application "Microsoft Edge"
+    tell t to execute javascript "document.querySelector('iframe').contentDocument.querySelector('button[data-tid=calendar_header_open_meet_now_flyout_button]').click()"
+    delay 0.1
+    tell t to execute javascript "document.querySelector('iframe').contentDocument.querySelector('button[data-tid=meet_now_calendar_flyout_get_meeting_link_button]').click()"
+  end tell
+end submit_meeting
+
+on run argv
+  tell application "Microsoft Edge"
+    if it is not running then
+      activate
+      delay 5
+    end if
+    tell first window
+      set teamsWindow to make new tab with properties {URL:"https://teams.microsoft.com/_?culture=en-us&country=us#/calendarv2"}
+      repeat while my is_really_on_calendar_page(teamsWindow) is false
+          delay 0.5
+      end repeat
+
+      my submit_meeting(teamsWindow)
+      repeat while my get_meeting_link(teamsWindow) is ""
+        delay 0.5
+      end repeat
+      set meetingLink to my get_meeting_link(teamsWindow)
+
+      tell application "Microsoft Edge"
+        tell teamsWindow to set URL to meetingLink
+      end tell
+
+      set the clipboard to meetingLink
+      display notification meetingLink with title "Meeting created"
+
+      delay 2.5
+
+      tell teamsWindow to close
+    end tell
+  end tell
+end run

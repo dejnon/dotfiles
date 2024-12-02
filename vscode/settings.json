@@ -1,0 +1,58 @@
+{
+  "telemetry.telemetryLevel": "off",
+  "explorer.confirmDelete": false,
+  "editor.inlineSuggest.enabled": true,
+  "redhat.telemetry.enabled": false,
+  "ruby.useLanguageServer": true,
+  "ruby.intellisense": "rubyLocate",
+  "terminal.external.osxExec": "iTerm2.app",
+  "workbench.tree.indent": 20,
+  "git.ignoreMissingGitWarning": true,
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": true,
+    "scminput": false,
+    "yaml": true
+  },
+  "explorer.confirmDragAndDrop": false,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "window.commandCenter": true,
+  "security.workspace.trust.untrustedFiles": "open",
+  "terminal.integrated.scrollback": 10000,
+  "editor.minimap.enabled": false,
+  "playwright.reuseBrowser": false,
+  "cSpell.userWords": [
+    "devportal",
+    "Octicon",
+    "testid"
+  ],
+  "prettier.resolveGlobalModules": true,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "git.confirmSync": false,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "workbench.startupEditor": "none",
+  "workbench.colorTheme": "Solarized Light",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "diffEditor.codeLens": true,
+  "editor.lineHeight": 1.65,
+  "editor.rulers": [
+    80,
+    120
+  ],
+  "jest.coverageColors": {
+    "uncovered": "rgba(255,99,71, 0.1)",
+    "partially-covered": "rgba(255,215,0, 0.1)"
+  },
+  "editor.stickyScroll.enabled": true,
+  "window.zoomLevel": 1,
+}

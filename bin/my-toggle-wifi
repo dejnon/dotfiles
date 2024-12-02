@@ -1,0 +1,13 @@
+#!/bin/bash
+
+device=$(networksetup -listallhardwareports | grep -E '(Wi-Fi|AirPort)' -A 1 | grep -o en.)
+
+if [ $# -eq 0 ] ; then
+    [[ "$(networksetup -getairportpower $device)" == *On ]] && v=off || v=on
+else
+    v=$1
+fi
+
+osascript -e 'display notification "WIFI is now '"$v"'" with title "Radio toggle"'
+
+networksetup -setairportpower $device $v

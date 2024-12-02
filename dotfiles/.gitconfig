@@ -1,0 +1,56 @@
+[alias]
+	# Simple aliases
+	s = status --short
+	l = log
+	dd = diff --staged
+	a = add -v
+	c = commit -v
+
+	co = checkout
+	coh = checkout HEAD --
+
+	rc = rebase --continue
+	ra = rebase --abort
+
+	tags = tag -l
+	branches = branch -a
+	remotes = remote -v
+	stats = shortlog -sn
+
+	main-branch = !git symbolic-ref refs/remotes/origin/HEAD | cut -d'/' -f4
+	com = "!f(){ git checkout $(git main-branch) $@;}; f"
+	rebasem = "!f(){ git rebase -i --autosquash origin/$(git main-branch) --no-verify $@;}; f"
+	resetm = "!f(){ git reset --hard origin/$(git main-branch) $@;}; f"
+	mergem = "!f(){ git merge origin/$(git main-branch) $@;}; f"
+	
+	reset-origin = reset --hard @{u}
+	reseto = reset-origin
+	reset-commit = reset HEAD^
+	resetc = reset-commit
+	stash-with-untracked = stash --include-untracked
+
+	amend = commit --amend --no-edit
+
+	commit-empty = commit --allow-empty -m "Bump"
+
+[push]
+	# Push only to the current branch
+	default = simple
+
+[url "git@github.com:"]
+	# Provide URL shorthand for GitHub
+	insteadOf = gh:
+
+[user]
+	name = Daniel Kosalla
+	email = dejnon@github.com
+[core]
+	editor = code --wait
+[url "https://@github.com/"]
+	insteadOf = https://github.com/
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+expiration=$((`date +%s` + 60*60))
+
+gh slack api post users.profile.set -t "github" -b '{"profile": {"status_text": "Lunchtime", "status_emoji": ":salad:", "status_expiration": "'"${expiration}"'"}}'

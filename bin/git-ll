@@ -1,3 +1,0 @@
-#!/bin/sh
-
-git log --graph --pretty=format:"%C(black bold)%h %C(red)%d %C(reset)%s %C(yellow)(%cd) %C(blue)%an%C(reset)"
